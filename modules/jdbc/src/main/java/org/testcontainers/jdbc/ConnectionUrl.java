@@ -227,7 +227,7 @@ public class ConnectionUrl {
 
         //Matches to part of string - hostname:port/databasename
         Pattern DB_INSTANCE_MATCHING_PATTERN = Pattern.compile(
-            "(?<databaseHost>[^:]+)?" +
+            "(?<databaseHost>[^:/]+)?" +
             "(:(?<databasePort>[0-9]+))?" +
             "(" +
             "(?<sidOrServiceName>[:/])" +
