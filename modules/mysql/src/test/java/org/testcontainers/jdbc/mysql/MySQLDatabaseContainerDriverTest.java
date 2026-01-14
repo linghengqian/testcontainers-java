@@ -41,4 +41,19 @@ class MySQLDatabaseContainerDriverTest {
             }
         }
     }
+
+    @Test
+    void shouldSupportUrlWithoutHostname() throws SQLException {
+        ContainerDatabaseDriver driver = new ContainerDatabaseDriver();
+        String url = "jdbc:tc:mysql:8.0.36:///databasename";
+
+        try (Connection connection = driver.connect(url, new Properties())) {
+            try (Statement statement = connection.createStatement()) {
+                try (ResultSet resultSet = statement.executeQuery("SELECT DATABASE()")) {
+                    assertThat(resultSet.next()).isTrue();
+                    assertThat(resultSet.getString(1)).isEqualTo("databasename");
+                }
+            }
+        }
+    }
 }
